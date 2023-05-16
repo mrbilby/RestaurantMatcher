@@ -11,6 +11,16 @@
 		B3057CD329F709F1002FA945 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3057CD229F709F1002FA945 /* ContentView.swift */; };
 		B3057CD529F709F2002FA945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3057CD429F709F2002FA945 /* Assets.xcassets */; };
 		B3057CD829F709F2002FA945 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3057CD729F709F2002FA945 /* Preview Assets.xcassets */; };
+		B3057CDF29F70A05002FA945 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3057CDE29F70A05002FA945 /* ContentView-ViewModel.swift */; };
+		B3057CE129F70A5A002FA945 /* Decision.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3057CE029F70A5A002FA945 /* Decision.swift */; };
+		B3057CE329F70B27002FA945 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3057CE229F70B27002FA945 /* FileManager.swift */; };
+		B3D641C52A110CBE0086D629 /* viewBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D641C42A110CBE0086D629 /* viewBinder.swift */; };
+		B3D641C72A1112050086D629 /* UserPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D641C62A1112050086D629 /* UserPosition.swift */; };
+		B3D641C92A111ADF0086D629 /* MatchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D641C82A111ADF0086D629 /* MatchingView.swift */; };
+		B3D641E52A12C8DC0086D629 /* PulsatingMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D641E42A12C8DC0086D629 /* PulsatingMarker.swift */; };
+		B3EECC9A2A003B5500E1DD63 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EECC992A003B5500E1DD63 /* EditView.swift */; };
+		B3EECCA22A01987E00E1DD63 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EECCA12A01987E00E1DD63 /* Place.swift */; };
+		B3EECCE52A11057500E1DD63 /* showLikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EECCE42A11057500E1DD63 /* showLikes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +29,16 @@
 		B3057CD229F709F1002FA945 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B3057CD429F709F2002FA945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3057CD729F709F2002FA945 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B3057CDE29F70A05002FA945 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
+		B3057CE029F70A5A002FA945 /* Decision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decision.swift; sourceTree = "<group>"; };
+		B3057CE229F70B27002FA945 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		B3D641C42A110CBE0086D629 /* viewBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewBinder.swift; sourceTree = "<group>"; };
+		B3D641C62A1112050086D629 /* UserPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPosition.swift; sourceTree = "<group>"; };
+		B3D641C82A111ADF0086D629 /* MatchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingView.swift; sourceTree = "<group>"; };
+		B3D641E42A12C8DC0086D629 /* PulsatingMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingMarker.swift; sourceTree = "<group>"; };
+		B3EECC992A003B5500E1DD63 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		B3EECCA12A01987E00E1DD63 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		B3EECCE42A11057500E1DD63 /* showLikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showLikes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +73,16 @@
 			children = (
 				B3057CD029F709F1002FA945 /* RestaurantMatcherApp.swift */,
 				B3057CD229F709F1002FA945 /* ContentView.swift */,
+				B3D641E42A12C8DC0086D629 /* PulsatingMarker.swift */,
+				B3D641C82A111ADF0086D629 /* MatchingView.swift */,
+				B3EECCE42A11057500E1DD63 /* showLikes.swift */,
+				B3EECCA12A01987E00E1DD63 /* Place.swift */,
+				B3EECC992A003B5500E1DD63 /* EditView.swift */,
+				B3057CE029F70A5A002FA945 /* Decision.swift */,
+				B3D641C42A110CBE0086D629 /* viewBinder.swift */,
+				B3D641C62A1112050086D629 /* UserPosition.swift */,
+				B3057CDE29F70A05002FA945 /* ContentView-ViewModel.swift */,
+				B3057CE229F70B27002FA945 /* FileManager.swift */,
 				B3057CD429F709F2002FA945 /* Assets.xcassets */,
 				B3057CD629F709F2002FA945 /* Preview Content */,
 			);
@@ -137,7 +167,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3057CE329F70B27002FA945 /* FileManager.swift in Sources */,
+				B3057CDF29F70A05002FA945 /* ContentView-ViewModel.swift in Sources */,
+				B3EECC9A2A003B5500E1DD63 /* EditView.swift in Sources */,
+				B3EECCE52A11057500E1DD63 /* showLikes.swift in Sources */,
 				B3057CD329F709F1002FA945 /* ContentView.swift in Sources */,
+				B3D641E52A12C8DC0086D629 /* PulsatingMarker.swift in Sources */,
+				B3057CE129F70A5A002FA945 /* Decision.swift in Sources */,
+				B3EECCA22A01987E00E1DD63 /* Place.swift in Sources */,
+				B3D641C72A1112050086D629 /* UserPosition.swift in Sources */,
+				B3D641C52A110CBE0086D629 /* viewBinder.swift in Sources */,
+				B3D641C92A111ADF0086D629 /* MatchingView.swift in Sources */,
 				B3057CD129F709F1002FA945 /* RestaurantMatcherApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +310,7 @@
 				DEVELOPMENT_TEAM = 4DWMMAL3UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Can I check where you are?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +340,7 @@
 				DEVELOPMENT_TEAM = 4DWMMAL3UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Can I check where you are?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
