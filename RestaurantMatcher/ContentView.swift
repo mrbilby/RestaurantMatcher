@@ -23,8 +23,9 @@ struct ContentView: View {
     @State var manager = CLLocationManager()
     @State var tracking : MapUserTrackingMode = .follow
     
-    @State private var animationAmount: CGFloat = 0.0
-    @State private var isAnimating = false
+    @State private var flipped = false
+    @State private var angle: Double = 0
+    @State private var animate3d = false
     
     @State private var places: [Place] = []
     @State private var selectedPlace: Place?
@@ -77,18 +78,11 @@ struct ContentView: View {
                     firstDecision.restaurantsLiked.removeAll()
                     secondDecision.restaurantsLiked.removeAll()
                     isDarkMode = false
-                    withAnimation(.easeInOut(duration: 1)) {
-                        self.animationAmount += 1
-                        self.isAnimating = true
+                    withAnimation(.linear(duration: 1)) {
+                        self.animate3d.toggle()
                     }
+                    self.flipped.toggle()
 
-                    // After the animation has completed, reset the state with animation
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        withAnimation(.easeInOut(duration: 1)) {
-                            self.animationAmount = 0.0
-                        }
-                        self.isAnimating = false
-                    }
 
                 } label: {
                     Text("Reset")
@@ -189,18 +183,10 @@ struct ContentView: View {
                     }
                     print(currentUser.currentUser)
                     
-                    withAnimation(.easeInOut(duration: 1)) {
-                        self.animationAmount += 1
-                        self.isAnimating = true
+                    withAnimation(.linear(duration: 1)) {
+                        self.animate3d.toggle()
                     }
-
-                    // After the animation has completed, reset the state with animation
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        withAnimation(.easeInOut(duration: 1)) {
-                            self.animationAmount = 0.0
-                        }
-                        self.isAnimating = false
-                    }
+                    self.flipped.toggle()
                 } label : {
                     VStack {
                         Text("Done")
@@ -226,8 +212,12 @@ struct ContentView: View {
         .onAppear {
             locationManager.requestWhenInUseAuthorization()
         }
-        .scaleEffect(1 + animationAmount)
-        .rotationEffect(.degrees(Double(animationAmount * 360)))
+        .rotation3DEffect(.degrees(angle), axis: (x: animate3d ? 1 : 0, y: 0, z: 0))
+        .onChange(of: animate3d, perform: { value in
+            withAnimation(.linear(duration: 0.5)) {
+                angle += 360
+            }
+        })
 
 
 
