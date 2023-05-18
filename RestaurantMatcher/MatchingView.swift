@@ -99,7 +99,7 @@ struct MatchingView: View {
                 dismiss()
                 isDarkMode = false
             } label: {
-                Text("Reset")
+                Text("Start Over")
             }
             Spacer()
         }

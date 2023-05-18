@@ -23,6 +23,9 @@ struct ContentView: View {
     @State var manager = CLLocationManager()
     @State var tracking : MapUserTrackingMode = .follow
     
+    @State private var animationAmount: CGFloat = 0.0
+    @State private var isAnimating = false
+    
     @State private var places: [Place] = []
     @State private var selectedPlace: Place?
     @State private var showingPlaceDetails = false
@@ -74,6 +77,18 @@ struct ContentView: View {
                     firstDecision.restaurantsLiked.removeAll()
                     secondDecision.restaurantsLiked.removeAll()
                     isDarkMode = false
+                    withAnimation(.easeInOut(duration: 1)) {
+                        self.animationAmount += 1
+                        self.isAnimating = true
+                    }
+
+                    // After the animation has completed, reset the state with animation
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        withAnimation(.easeInOut(duration: 1)) {
+                            self.animationAmount = 0.0
+                        }
+                        self.isAnimating = false
+                    }
 
                 } label: {
                     Text("Reset")
@@ -134,6 +149,10 @@ struct ContentView: View {
                 }
 
             }
+
+
+            
+            
             HStack {
                 Spacer()
                 Button {
@@ -169,6 +188,19 @@ struct ContentView: View {
                         showMatchedView = true
                     }
                     print(currentUser.currentUser)
+                    
+                    withAnimation(.easeInOut(duration: 1)) {
+                        self.animationAmount += 1
+                        self.isAnimating = true
+                    }
+
+                    // After the animation has completed, reset the state with animation
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        withAnimation(.easeInOut(duration: 1)) {
+                            self.animationAmount = 0.0
+                        }
+                        self.isAnimating = false
+                    }
                 } label : {
                     VStack {
                         Text("Done")
@@ -194,6 +226,8 @@ struct ContentView: View {
         .onAppear {
             locationManager.requestWhenInUseAuthorization()
         }
+        .scaleEffect(1 + animationAmount)
+        .rotationEffect(.degrees(Double(animationAmount * 360)))
 
 
 
