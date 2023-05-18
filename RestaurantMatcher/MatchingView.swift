@@ -15,13 +15,20 @@ struct MatchingView: View {
     @ObservedObject var currentUser = userPosition()
     @State private var selectedPlace: Place?
     @State private var showingPlaceDetails = false
+    @State private var failedMatch = false
 
     @Environment(\.dismiss) var dismiss
     @Binding var isDarkMode: Bool
     private var matchedDecision: [Place] {
         firstDecision.restaurantsLiked.filter { secondDecision.restaurantsLiked.contains($0) }
     }
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.33472222, longitude: -122.00888889), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(),  // default coordinate
+        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+    )
+    
+    //@State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.33472222, longitude: -122.00888889), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     var body: some View {
         VStack {
@@ -96,6 +103,9 @@ struct MatchingView: View {
             }
             Spacer()
         }
+        .onAppear {
+            updateRegion()
+        }
 
         
     }
@@ -111,7 +121,19 @@ struct MatchingView: View {
         // Open the URL in the default browser
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-    
+    func updateRegion() {
+        guard !matchedDecision.isEmpty else {
+            // Handle the case where matchedDecision is empty.
+            print("No matched decision available.")
+            failedMatch = true
+            return
+        }
+
+        region = MKCoordinateRegion(
+            center: matchedDecision[0].coordinate,
+            span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+        )
+    }
 
 }
 

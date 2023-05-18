@@ -14,6 +14,7 @@
 		B3057CDF29F70A05002FA945 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3057CDE29F70A05002FA945 /* ContentView-ViewModel.swift */; };
 		B3057CE129F70A5A002FA945 /* Decision.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3057CE029F70A5A002FA945 /* Decision.swift */; };
 		B3057CE329F70B27002FA945 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3057CE229F70B27002FA945 /* FileManager.swift */; };
+		B328D5AA2A156FF300E6AB22 /* NoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B328D5A92A156FF300E6AB22 /* NoMatchView.swift */; };
 		B3D641C52A110CBE0086D629 /* viewBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D641C42A110CBE0086D629 /* viewBinder.swift */; };
 		B3D641C72A1112050086D629 /* UserPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D641C62A1112050086D629 /* UserPosition.swift */; };
 		B3D641C92A111ADF0086D629 /* MatchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D641C82A111ADF0086D629 /* MatchingView.swift */; };
@@ -32,6 +33,7 @@
 		B3057CDE29F70A05002FA945 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
 		B3057CE029F70A5A002FA945 /* Decision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decision.swift; sourceTree = "<group>"; };
 		B3057CE229F70B27002FA945 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		B328D5A92A156FF300E6AB22 /* NoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMatchView.swift; sourceTree = "<group>"; };
 		B3D641C42A110CBE0086D629 /* viewBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewBinder.swift; sourceTree = "<group>"; };
 		B3D641C62A1112050086D629 /* UserPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPosition.swift; sourceTree = "<group>"; };
 		B3D641C82A111ADF0086D629 /* MatchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingView.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				B3057CD229F709F1002FA945 /* ContentView.swift */,
 				B3D641E42A12C8DC0086D629 /* PulsatingMarker.swift */,
 				B3D641C82A111ADF0086D629 /* MatchingView.swift */,
+				B328D5A92A156FF300E6AB22 /* NoMatchView.swift */,
 				B3EECCE42A11057500E1DD63 /* showLikes.swift */,
 				B3EECCA12A01987E00E1DD63 /* Place.swift */,
 				B3EECC992A003B5500E1DD63 /* EditView.swift */,
@@ -175,6 +178,7 @@
 				B3D641E52A12C8DC0086D629 /* PulsatingMarker.swift in Sources */,
 				B3057CE129F70A5A002FA945 /* Decision.swift in Sources */,
 				B3EECCA22A01987E00E1DD63 /* Place.swift in Sources */,
+				B328D5AA2A156FF300E6AB22 /* NoMatchView.swift in Sources */,
 				B3D641C72A1112050086D629 /* UserPosition.swift in Sources */,
 				B3D641C52A110CBE0086D629 /* viewBinder.swift in Sources */,
 				B3D641C92A111ADF0086D629 /* MatchingView.swift in Sources */,
@@ -310,7 +314,6 @@
 				DEVELOPMENT_TEAM = 4DWMMAL3UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Can I check where you are?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -340,7 +343,6 @@
 				DEVELOPMENT_TEAM = 4DWMMAL3UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Can I check where you are?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

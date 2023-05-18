@@ -36,14 +36,27 @@ struct ContentView: View {
     @State private var showingEditView = false
     @State private var showLikesView = false
     @State private var showMatchedView = false
+    @State private var showNoMatchedView = false
+    
+
     @StateObject var firstDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
     @StateObject var currentUser = userPosition()
     @StateObject var secondDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
     @State private var isDarkMode = false
+    private var matchedDecision: [Place] {
+        firstDecision.restaurantsLiked.filter { secondDecision.restaurantsLiked.contains($0) }
+    }
     private var sheetBinding: Binding<Bool> {
         Binding(
-            get: { currentUser.currentUser == 3 && showMatchedView },
+            get: { currentUser.currentUser == 3 && showMatchedView && !matchedDecision.isEmpty },
             set: { showMatchedView = $0 }
+        )
+    }
+    
+    private var noMatchBinding: Binding<Bool> {
+        Binding(
+            get: { currentUser.currentUser == 3 && showMatchedView && matchedDecision.isEmpty },
+            set: { showNoMatchedView = $0 }
         )
     }
     
@@ -52,7 +65,30 @@ struct ContentView: View {
         
         
         VStack {
+            HStack {
+                Button {
+                    currentUser.currentUser = 1
+                    viewBinding.showLikesView = false
+                    viewBinding.showMatchedView = false
+                    viewBinding.showingEditView = false
+                    firstDecision.restaurantsLiked.removeAll()
+                    secondDecision.restaurantsLiked.removeAll()
+                    isDarkMode = false
+
+                } label: {
+                    Text("Reset")
+                }
+                .padding(.leading)
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Text("Options")
+                }
+                .padding(.trailing)
+            }
             ZStack {
+                
                 //Map(coordinateRegion: $managerDelegate.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $tracking)
                 Map(coordinateRegion: $managerDelegate.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $tracking, annotationItems: places) { place in
                     MapAnnotation(coordinate: place.coordinate) {
@@ -64,11 +100,9 @@ struct ContentView: View {
                         }
                     }
                 }
-                .edgesIgnoringSafeArea(.all)
                 .onAppear {
                     manager.delegate = managerDelegate
                     searchForRestaurants()
-                    locationManager.requestWhenInUseAuthorization()
                 }
 
                 
@@ -144,6 +178,10 @@ struct ContentView: View {
                 .sheet(isPresented: sheetBinding) {
                     MatchingView(firstDecision: firstDecision, secondDecision: secondDecision, viewBinding: viewBinding, currentUser: currentUser, isDarkMode: $isDarkMode)
                 }
+                .sheet(isPresented: noMatchBinding) {
+                    NoMatchView(firstDecision: firstDecision, secondDecision: secondDecision, viewBinding: viewBinding, currentUser: currentUser, isDarkMode: $isDarkMode)
+
+                }
  
                 Spacer()
             }
@@ -151,10 +189,16 @@ struct ContentView: View {
 
             
         }
+        
         .background(isDarkMode ? Color.yellow : Color.white)
+        .onAppear {
+            locationManager.requestWhenInUseAuthorization()
+        }
+
 
 
     }
+    
     
     func searchForRestaurants() {
         let request = MKLocalSearch.Request()
