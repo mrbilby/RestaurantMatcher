@@ -41,26 +41,35 @@ struct ContentView: View {
     @State private var showLikesView = false
     @State private var showMatchedView = false
     @State private var showNoMatchedView = false
+    @State private var showInstructionsView = false
     
+    @State private var colourChoice = Color.orange
 
     @StateObject var firstDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
     @StateObject var currentUser = userPosition()
     @StateObject var secondDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
     @State private var isDarkMode = false
-    private var matchedDecision: [Place] {
-        firstDecision.restaurantsLiked.filter { secondDecision.restaurantsLiked.contains($0) }
+    private var matchedMainDecision: [Place] {
+        firstDecision.restaurantsLiked.filter { first in
+            secondDecision.restaurantsLiked.contains(where: { second in
+                coordinatesEqual(first.coordinate, second.coordinate) && first.title == second.title
+            })
+        }
     }
+    
     private var sheetBinding: Binding<Bool> {
         Binding(
-            get: { currentUser.currentUser == 3 && showMatchedView && !matchedDecision.isEmpty },
+            
+            get: { currentUser.currentUser == 3 && showMatchedView && !matchedMainDecision.isEmpty },
             set: { showMatchedView = $0 }
+             
         )
     }
     
     
     private var noMatchBinding: Binding<Bool> {
         Binding(
-            get: { currentUser.currentUser == 3 && showMatchedView && matchedDecision.isEmpty },
+            get: { currentUser.currentUser == 3 && showMatchedView && matchedMainDecision.isEmpty },
             set: { showNoMatchedView = $0 }
         )
     }
@@ -77,6 +86,8 @@ struct ContentView: View {
                     viewBinding.showingEditView = false
                     firstDecision.restaurantsLiked.removeAll()
                     secondDecision.restaurantsLiked.removeAll()
+                    firstDecision.restaurantsDisLiked.removeAll()
+                    secondDecision.restaurantsDisLiked.removeAll()
                     isDarkMode = false
                     withAnimation(.linear(duration: 1)) {
                         self.animate3d.toggle()
@@ -90,31 +101,30 @@ struct ContentView: View {
                 .padding(.leading)
                 Spacer()
                 Button {
-                    
+                    showInstructionsView = true
                 } label: {
-                    Text("Options")
+                    Text("Instructions")
                 }
                 .padding(.trailing)
+                .sheet(isPresented: $showInstructionsView) {
+                    InstructionsView()
+                }
             }
             ZStack {
                 
                 //Map(coordinateRegion: $managerDelegate.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $tracking)
                 Map(coordinateRegion: $managerDelegate.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $tracking, annotationItems: places) { place in
                     MapAnnotation(coordinate: place.coordinate) {
+
                         Button(action: {
+                            print(matchedMainDecision)
                             print("Press")
                             self.selectedPlace = place
                             self.showingPlaceDetails = true
-                            if firstDecision.restaurantsLiked.contains(place) && currentUser.currentUser == 1 {
-                                print("\(place.title) is in the of first liked and position 1.")
-                                currentUser.currentColour = 2
-                            } else {
-                                print("\(place.title) is not in the array.")
-                            }
+    
                             print(currentUser.currentUser)
                             
                         }) {
-
                             PulsatingMarker(
                                 firstDecision: firstDecision,
                                 secondDecision: secondDecision,
@@ -122,7 +132,11 @@ struct ContentView: View {
                                 color:
                                     (firstDecision.restaurantsLiked.contains(place) && currentUser.currentUser == 1) ||
                                     (secondDecision.restaurantsLiked.contains(place) && currentUser.currentUser == 2)
-                                    ? Color.green : Color.orange
+                                    ? Color.green
+                                    : (firstDecision.restaurantsDisLiked.contains(place) && currentUser.currentUser == 1) ||
+                                      (secondDecision.restaurantsDisLiked.contains(place) && currentUser.currentUser == 2)
+                                      ? Color.red
+                                      : Color.orange
                             )
                         }
                     }
@@ -214,12 +228,14 @@ struct ContentView: View {
                     }
                 }
                 .sheet(isPresented: sheetBinding) {
-                    MatchingView(firstDecision: firstDecision, secondDecision: secondDecision, viewBinding: viewBinding, currentUser: currentUser, isDarkMode: $isDarkMode)
+                    MatchingView(firstDecision: firstDecision, secondDecision: secondDecision, viewBinding: viewBinding, currentUser: currentUser, isDarkMode: $isDarkMode, region: $managerDelegate.region)
                 }
+                
                 .sheet(isPresented: noMatchBinding) {
                     NoMatchView(firstDecision: firstDecision, secondDecision: secondDecision, viewBinding: viewBinding, currentUser: currentUser, isDarkMode: $isDarkMode)
 
                 }
+                 
  
                 Spacer()
             }
@@ -243,6 +259,7 @@ struct ContentView: View {
 
     }
     
+
     
     func searchForRestaurants() {
         let request = MKLocalSearch.Request()
@@ -259,6 +276,9 @@ struct ContentView: View {
                 places.append(place)
             }
         }
+    }
+    func coordinatesEqual(_ lhs: CLLocationCoordinate2D, _ rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
 
 

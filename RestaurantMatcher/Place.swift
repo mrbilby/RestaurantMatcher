@@ -10,7 +10,6 @@ import MapKit
 import UIKit
 
 class Place: NSObject, Identifiable, MKAnnotation {
-    let id = UUID()
     let coordinate: CLLocationCoordinate2D
     let title: String?
     let subtitle: String?

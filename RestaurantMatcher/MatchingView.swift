@@ -20,13 +20,15 @@ struct MatchingView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var isDarkMode: Bool
     private var matchedDecision: [Place] {
-        firstDecision.restaurantsLiked.filter { secondDecision.restaurantsLiked.contains($0) }
+        firstDecision.restaurantsLiked.filter { first in
+            secondDecision.restaurantsLiked.contains(where: { second in
+                coordinatesEqual(first.coordinate, second.coordinate) && first.title == second.title
+            })
+        }
     }
 
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(),  // default coordinate
-        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
-    )
+
+    @Binding var region: MKCoordinateRegion
     
     //@State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.33472222, longitude: -122.00888889), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
@@ -38,6 +40,7 @@ struct MatchingView: View {
                     .font(.title)
                     .fontWeight(.heavy)
                 Map(coordinateRegion: $region, annotationItems: matchedDecision) { place in
+                    
                     MapAnnotation(coordinate: place.coordinate) {
                         Button(action: {
                             self.selectedPlace = place
@@ -96,8 +99,10 @@ struct MatchingView: View {
                 viewBinding.showingEditView = false
                 firstDecision.restaurantsLiked.removeAll()
                 secondDecision.restaurantsLiked.removeAll()
-                dismiss()
+                firstDecision.restaurantsDisLiked.removeAll()
+                secondDecision.restaurantsDisLiked.removeAll()
                 isDarkMode = false
+                dismiss()
             } label: {
                 Text("Start Over")
             }
@@ -125,6 +130,9 @@ struct MatchingView: View {
         guard !matchedDecision.isEmpty else {
             // Handle the case where matchedDecision is empty.
             print("No matched decision available.")
+            print(firstDecision.restaurantsLiked)
+            print(secondDecision.restaurantsLiked)
+
             failedMatch = true
             return
         }
@@ -133,6 +141,9 @@ struct MatchingView: View {
             center: matchedDecision[0].coordinate,
             span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
         )
+    }
+    func coordinatesEqual(_ lhs: CLLocationCoordinate2D, _ rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
 
 }

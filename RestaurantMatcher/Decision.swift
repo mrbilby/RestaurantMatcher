@@ -12,9 +12,9 @@ class userDecision: ObservableObject {
     @Published var choice = false
     @Published var user = 1
     @Published var restaurantsLiked: Set<Place>
-    @Published var restaurantsDisLiked: [String]
+    @Published var restaurantsDisLiked: Set<Place>
     
-    init(choice: Bool = false, user: Int = 1, restaurantsLiked: Set<Place>, restaurantsDisLiked: [String]) {
+    init(choice: Bool = false, user: Int = 1, restaurantsLiked: Set<Place>, restaurantsDisLiked: Set<Place>) {
         self.choice = choice
         self.user = user
         self.restaurantsLiked = restaurantsLiked

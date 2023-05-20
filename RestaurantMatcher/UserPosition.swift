@@ -9,5 +9,4 @@ import Foundation
 
 class userPosition: ObservableObject {
     @Published var currentUser = 1
-    @Published var currentColour = 1
 }

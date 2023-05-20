@@ -24,6 +24,8 @@ struct NoMatchView: View {
             viewBinding.showingEditView = false
             firstDecision.restaurantsLiked.removeAll()
             secondDecision.restaurantsLiked.removeAll()
+            firstDecision.restaurantsDisLiked.removeAll()
+            secondDecision.restaurantsDisLiked.removeAll()
             isDarkMode = false
         } label: {
             Text("Reset")

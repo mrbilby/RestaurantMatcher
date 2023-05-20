@@ -23,7 +23,6 @@ struct PulsatingMarker: View {
     @ObservedObject var currentUser = userPosition()
     var color: Color
 
-    @State var colorOption = 1
     var body: some View {
         ZStack {
             Circle()
@@ -35,31 +34,14 @@ struct PulsatingMarker: View {
                     Circle()
                         .stroke(markerBorderColor, lineWidth: markerBorderWidth)
                 )
-                .animation(
-                    Animation.easeInOut(duration: animationDuration)
-                        .repeatForever(autoreverses: true)
-                )
         }
         .onAppear {
-            withAnimation {
+            withAnimation(Animation.easeInOut(duration: animationDuration).repeatForever(autoreverses: true)) {
                 scale = 1.2
                 opacity = minOpacity
             }
         }
     }
-    func ColorSelection(colorOption: Int) -> Color {
-        switch colorOption {
-        case 1:
-            return Color.orange
-        case 2:
-            return Color.green
-        case 3:
-            return Color.red
-        default:
-            return Color.gray // Default color if the variable is not 1, 2, or 3
-        }
-    }
-
 }
 
 struct PulsatingMarker_Previews: PreviewProvider {
