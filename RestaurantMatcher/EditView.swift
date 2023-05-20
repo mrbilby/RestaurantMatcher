@@ -13,7 +13,6 @@ import CoreLocation
 struct EditView: View {
     @ObservedObject var firstDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
     @ObservedObject var secondDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
-    @ObservedObject var viewBinding = viewCheck()
     @ObservedObject var currentUser = userPosition()
     @Environment(\.dismiss) var dismiss
     let selectedPlace: Place?
@@ -23,17 +22,43 @@ struct EditView: View {
         VStack {
             Spacer()
             Text(selectedPlace?.title ?? "Unknown")
-            Text(selectedPlace?.subtitle ?? "Missing place information.")
+                .font(.largeTitle)
+            if let number = selectedPlace?.subtitle?.filter("+0123456789.".contains), let url = URL(string: "tel:\(number)") {
+                Link(number, destination: url)
+            } else {
+                Text("Unknown")
+            }
+            Spacer()
             Button {
                 openGoogleReviews(selectedPlace!)
             } label: {
                 Text("Check Google Reviews")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(40)
+                    .padding(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 40)
+                            .stroke(Color.blue, lineWidth: 5)
+                    )
             }
             Spacer()
             Button {
                 openYelpReviews(selectedPlace!)
             } label: {
                 Text("Check Yelp Reviews")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .padding()
+                    .background(Color.orange)
+                    .cornerRadius(40)
+                    .padding(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 40)
+                            .stroke(Color.blue, lineWidth: 5)
+                    )
             }
             Spacer()
             HStack {
@@ -52,7 +77,6 @@ struct EditView: View {
                         }
                         print("Second Liked")
                     }
-                    viewBinding.showingEditView = false
                     dismiss()
                 } label: {
                     Text("👍").font(.system(size: 150))
@@ -74,7 +98,6 @@ struct EditView: View {
                         }
                         print("Second Liked")
                     }
-                    viewBinding.showingEditView = false
                     dismiss()
 
                 } label: {
@@ -151,6 +174,24 @@ struct EditView: View {
                 }
             }
         }
+    }
+}
+
+
+
+
+
+struct EditView_Previews: PreviewProvider {
+    static var previews: some View {
+        let userDecisionExample = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
+        let userPositionExample = userPosition()
+
+        return EditView(
+            firstDecision: userDecisionExample,
+            secondDecision: userDecisionExample,
+            currentUser: userPositionExample,
+            selectedPlace: Place(coordinate: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), title: "Example Place", subtitle: "123 Example Street", mapURL: "www.blah.com")
+        )
     }
 }
 

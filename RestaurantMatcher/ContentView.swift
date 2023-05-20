@@ -34,7 +34,8 @@ struct ContentView: View {
     let locationManager = CLLocationManager()
 
     // Request authorization when the app is in use
-
+    
+    @State private var showUserText = false
 
     @StateObject var viewBinding = viewCheck()
     @State private var showingEditView = false
@@ -100,6 +101,9 @@ struct ContentView: View {
                 }
                 .padding(.leading)
                 Spacer()
+                Text("Player \(currentUser.currentUser)")
+                    .font(.title3).foregroundColor(Color.black).shadow(radius: 10)
+                Spacer()
                 Button {
                     showInstructionsView = true
                 } label: {
@@ -117,12 +121,10 @@ struct ContentView: View {
                     MapAnnotation(coordinate: place.coordinate) {
 
                         Button(action: {
-                            print(matchedMainDecision)
                             print("Press")
                             self.selectedPlace = place
                             self.showingPlaceDetails = true
     
-                            print(currentUser.currentUser)
                             
                         }) {
                             PulsatingMarker(
@@ -143,7 +145,6 @@ struct ContentView: View {
                 }
                 .onAppear {
                     manager.delegate = managerDelegate
-                    //searchForRestaurants()
                 }
 
                 
@@ -304,6 +305,7 @@ class locationDelegate: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
+    
 }
 
 
