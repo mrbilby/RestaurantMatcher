@@ -17,11 +17,17 @@ struct PulsatingMarker: View {
     let markerColor = Color.red
     let markerBorderColor = Color.white
     let markerBorderWidth: CGFloat = 2.0
+    
+    @ObservedObject var firstDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
+    @ObservedObject var secondDecision = userDecision(restaurantsLiked: [], restaurantsDisLiked: [])
+    @ObservedObject var currentUser = userPosition()
+    var color: Color
 
+    @State var colorOption = 1
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color.orange)
+                .fill(color)
                 .frame(width: 30, height: 30)
                 .scaleEffect(scale)
                 .opacity(opacity)
@@ -41,10 +47,23 @@ struct PulsatingMarker: View {
             }
         }
     }
+    func ColorSelection(colorOption: Int) -> Color {
+        switch colorOption {
+        case 1:
+            return Color.orange
+        case 2:
+            return Color.green
+        case 3:
+            return Color.red
+        default:
+            return Color.gray // Default color if the variable is not 1, 2, or 3
+        }
+    }
+
 }
 
 struct PulsatingMarker_Previews: PreviewProvider {
     static var previews: some View {
-        PulsatingMarker()
+        PulsatingMarker(color: Color.orange)
     }
 }

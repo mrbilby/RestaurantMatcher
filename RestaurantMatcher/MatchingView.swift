@@ -43,7 +43,7 @@ struct MatchingView: View {
                             self.selectedPlace = place
                             self.showingPlaceDetails = true
                         }) {
-                            PulsatingMarker()
+                            PulsatingMarker(color: Color.green)
                         }
                     }
                 }

@@ -57,6 +57,7 @@ struct ContentView: View {
         )
     }
     
+    
     private var noMatchBinding: Binding<Bool> {
         Binding(
             get: { currentUser.currentUser == 3 && showMatchedView && matchedDecision.isEmpty },
@@ -66,7 +67,6 @@ struct ContentView: View {
     
     
     var body: some View {
-        
         
         VStack {
             HStack {
@@ -82,7 +82,7 @@ struct ContentView: View {
                         self.animate3d.toggle()
                     }
                     self.flipped.toggle()
-
+                    searchForRestaurants()
 
                 } label: {
                     Text("Reset")
@@ -102,16 +102,34 @@ struct ContentView: View {
                 Map(coordinateRegion: $managerDelegate.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $tracking, annotationItems: places) { place in
                     MapAnnotation(coordinate: place.coordinate) {
                         Button(action: {
+                            print("Press")
                             self.selectedPlace = place
                             self.showingPlaceDetails = true
+                            if firstDecision.restaurantsLiked.contains(place) && currentUser.currentUser == 1 {
+                                print("\(place.title) is in the of first liked and position 1.")
+                                currentUser.currentColour = 2
+                            } else {
+                                print("\(place.title) is not in the array.")
+                            }
+                            print(currentUser.currentUser)
+                            
                         }) {
-                            PulsatingMarker()
+
+                            PulsatingMarker(
+                                firstDecision: firstDecision,
+                                secondDecision: secondDecision,
+                                currentUser: currentUser,
+                                color:
+                                    (firstDecision.restaurantsLiked.contains(place) && currentUser.currentUser == 1) ||
+                                    (secondDecision.restaurantsLiked.contains(place) && currentUser.currentUser == 2)
+                                    ? Color.green : Color.orange
+                            )
                         }
                     }
                 }
                 .onAppear {
                     manager.delegate = managerDelegate
-                    searchForRestaurants()
+                    //searchForRestaurants()
                 }
 
                 
@@ -187,6 +205,8 @@ struct ContentView: View {
                         self.animate3d.toggle()
                     }
                     self.flipped.toggle()
+                    searchForRestaurants()
+
                 } label : {
                     VStack {
                         Text("Done")
@@ -245,7 +265,8 @@ struct ContentView: View {
 }
 
 class locationDelegate: NSObject, ObservableObject, CLLocationManagerDelegate {
-    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.33472222, longitude: -122.00888889), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 39.50, longitude: -98.35), span: MKCoordinateSpan(latitudeDelta: 100, longitudeDelta: 100))
+    private var didSetInitialRegion = false
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if manager.authorizationStatus == .authorizedWhenInUse {
@@ -257,7 +278,10 @@ class locationDelegate: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+            if !didSetInitialRegion {
+                region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+                didSetInitialRegion = true
+            }
         }
     }
 }
