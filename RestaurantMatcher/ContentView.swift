@@ -32,8 +32,6 @@ struct ContentView: View {
     @State private var showingPlaceDetails = false
     @State private var examplePlace = CLLocationCoordinate2D(latitude: 37.33472222, longitude: -122.00888889)
     let locationManager = CLLocationManager()
-
-    // Request authorization when the app is in use
     
     @State private var showUserText = false
 

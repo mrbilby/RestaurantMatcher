@@ -13,7 +13,7 @@ struct InstructionsView: View {
             .font(.largeTitle)
             .padding(.top)
         Spacer()
-        Text("Navigate to where you want to search for restaurants and press Search. \n Then select the glowing orange circle and check reviews if you like. If happy with it you can select whether you like it or not. You can see what you liked or disliked in the map as green or red glwing circles. When you are finished press Done and give your phone to your partner for them to try. When they are finished and they press Done you will see where you match!")
+        Text("Navigate to where you want to search for restaurants and press Search. \nSelect the glowing orange circle and check reviews. If happy with it you can select whether you like it or not. You can see what you liked or disliked in the map as green or red glwing circles. When you are finished press Done and give your phone to your partner for them to try. When they are finished and they press Done you will see where you match!")
             .font(.title2)
             .fontWeight(.regular)
             .multilineTextAlignment(.leading)
